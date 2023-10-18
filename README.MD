@@ -5,7 +5,7 @@ gov2pane 客户端
 暂时只当作win客户端
 
 # Windows  
-直接给系统代理设置http代理即可  device_code/win.go  
+可以使用~ 
 
 
 # 安卓Android
