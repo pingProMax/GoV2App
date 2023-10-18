@@ -33,5 +33,5 @@ gov2pane 客户端
 
 # 页面展示  
 页面略丑，流下了没有技术的泪水😟    
-![页面展示](https://github.com/pingProMax/GoV2App/blob/main/1.png?raw=true =600x600)  
-![页面展示](https://github.com/pingProMax/GoV2App/blob/main/2.png?raw=true =600x600)  
+<img src="https://github.com/pingProMax/GoV2App/blob/main/1.png?raw=true" width="30%">
+<img src="https://github.com/pingProMax/GoV2App/blob/main/2.png?raw=true" width="30%">
