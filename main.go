@@ -2,9 +2,8 @@ package main
 
 import (
 	_ "embed"
-	"fmt"
-	"os"
-	"strings"
+
+	_ "GoV2App/webapi"
 
 	_ "github.com/xtls/xray-core/main/distro/all"
 
@@ -14,9 +13,6 @@ import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/theme"
-
-	"github.com/xtls/xray-core/common"
-	"github.com/xtls/xray-core/core"
 )
 
 var (
@@ -25,9 +21,6 @@ var (
 )
 
 func main() {
-	xrayC()
-	// xrayClient()
-
 	myApp := app.New()
 
 	myApp.Settings().SetTheme(&MyTheme{})
@@ -39,27 +32,6 @@ func main() {
 
 	//用户界面
 
-}
-
-func xrayC() {
-
-	str := ``
-
-	if data, err := os.ReadFile("./v2ray.json"); err != nil {
-		panic(err.Error())
-	} else {
-		str = string(data)
-	}
-
-	// config, err := core.LoadConfig(getConfigFormat(), configFiles[0], configFiles)
-	c, err := core.LoadConfig("json", strings.NewReader(str))
-	common.Must(err)
-
-	server, err := core.New(c)
-
-	common.Must(err)
-	common.Must(server.Start())
-	fmt.Println("启动...")
 }
 
 type MyTheme struct{}

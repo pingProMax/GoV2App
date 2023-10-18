@@ -1,0 +1,90 @@
+{
+	"inbounds": [
+		{
+			"tag": "http",
+			"port": 10899,
+			"listen": "127.0.0.1",
+			"protocol": "http",
+			"sniffing": {
+				"enabled": true,
+				"destOverride": [
+					"http",
+					"tls"
+				]
+			},
+			"settings": {
+				"auth": "noauth",
+				"udp": true,
+				"allowTransparent": false
+			}
+		}
+	],
+	"outbounds": [{
+			"tag": "proxy",
+			"protocol": "vmess",
+			"settings": {
+				"vnext": [{
+					"address": "18.183.76.238",
+					"port": 45226,
+					"users": [{
+						"id": "9eef62b8-d581-4565-af32-0e67de7fcea6",
+						"alterId": 0,
+						"email": "t@t.tt",
+						"security": "auto"
+					}]
+				}]
+			},
+			"streamSettings": {
+				"network": "tcp"
+			},
+			"mux": {
+				"enabled": true,
+				"concurrency": 8
+			}
+		},
+		{
+			"tag": "direct",
+			"protocol": "freedom",
+			"settings": {}
+		},
+		{
+			"tag": "block",
+			"protocol": "blackhole",
+			"settings": {
+				"response": {
+					"type": "http"
+				}
+			}
+		}
+	],
+	"stats": {},
+	"api": {
+		"tag": "api",
+		"services": [
+			"StatsService"
+		]
+	},
+	"routing": {
+		"domainStrategy": "IPIfNonMatch",
+		"domainMatcher": "linear",
+		"rules": [
+			{
+				
+				"type": "field",
+				"domain": "geosite:cn",
+				"outboundTag": "direct",
+				"enabled": true
+			},{
+				"type": "field",
+				"ip": "geoip:private,geoip:cn",
+				"outboundTag": "direct",
+				"enabled": true
+			},{
+				"type": "field",
+				"port": "0-65535",
+				"outboundTag": "proxy",
+				"enabled": true
+			}
+		]
+	}
+}

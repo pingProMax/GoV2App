@@ -1,0 +1,60 @@
+{
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": [
+                    "api"
+                ],
+                "outboundTag": "api",
+                "enabled": true
+            },
+            {
+                "id": "4993800127342196613",
+                "type": "field",
+                "outboundTag": "direct",
+                "domain": [
+                    "domain:example-example.com",
+                    "domain:example-example2.com"
+                ],
+                "enabled": true
+            },
+            {
+                "id": "5463882675530446405",
+                "type": "field",
+                "outboundTag": "block",
+                "domain": [
+                    "geosite:category-ads-all"
+                ],
+                "enabled": true
+            },
+            {
+                "id": "4977096302226446873",
+                "type": "field",
+                "outboundTag": "direct",
+                "domain": [
+                    "geosite:cn"
+                ],
+                "enabled": true
+            },
+            {
+                "id": "5243785373456825916",
+                "type": "field",
+                "outboundTag": "direct",
+                "ip": [
+                    "geoip:private",
+                    "geoip:cn"
+                ],
+                "enabled": true
+            },
+            {
+                "id": "5086158362303720841",
+                "type": "field",
+                "port": "0-65535",
+                "outboundTag": "proxy",
+                "enabled": true
+            }
+        ]
+    }
+}

@@ -1,8 +1,13 @@
 package frame
 
 import (
+	"GoV2App/device_code"
 	"image/color"
 	"net/url"
+	"strings"
+	"time"
+
+	"GoV2App/webapi"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -11,25 +16,41 @@ import (
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/xtls/xray-core/core"
 )
 
 func LoginHandle(app fyne.App) {
 	w := app.NewWindow("登录")
 	w.Canvas()
 
-	usernameEntry := &widget.Entry{PlaceHolder: "请输入用户名", Text: "admin"}
-	passwdEntry := &widget.Entry{PlaceHolder: "请输入密码", Password: true, Text: "admin"}
+	v := webapi.DB.Get("jwt")
+	if v != "" {
+		jwtEx := webapi.DB.Get("jwtEx")
+		if gtime.New(jwtEx).Timestamp() > time.Now().Unix() {
+			// w.Hide()
+			UserHandle(app)
+			return
+		}
+	}
+
+	usernameEntry := &widget.Entry{PlaceHolder: "请输入用户名", Text: ""}
+	passwdEntry := &widget.Entry{PlaceHolder: "请输入密码", Password: true, Text: ""}
+	// passwdEntry.Text = "******"
 	loginBut := &widget.Button{
 		Text: "登录",
 		Icon: theme.ConfirmIcon(),
 		OnTapped: func() {
 			//登录
-			if usernameEntry.Text == "admin" && passwdEntry.Text == "admin" {
+			infoStr := webapi.Login(usernameEntry.Text, passwdEntry.Text)
+			if infoStr == "" {
+
 				// w.Hide()
 				UserHandle(app)
 				w.Close()
+				xrayC(w)
 			} else {
-				dialog.ShowInformation("提示", "密码错误！", w)
+				dialog.ShowInformation("提示", infoStr, w)
 			}
 
 		},
@@ -60,6 +81,44 @@ func LoginHandle(app fyne.App) {
 			)),
 		),
 	)
-
+	passwdEntry.Refresh()
 	w.Show()
+}
+
+func xrayC(w fyne.Window) {
+
+	str := ``
+
+	// if data, err := os.ReadFile("./v2ray.json"); err != nil {
+	// 	panic(err.Error())
+	// } else {
+	// 	str = string(data)
+	// }
+
+	//设置环境变量
+	// os.Setenv("xray.location.asset", getCurrentAbPathByCaller()+"/")
+
+	// fmt.Println(getCurrentAbPathByCaller())
+
+	// config, err := core.LoadConfig(getConfigFormat(), configFiles[0], configFiles)
+	c, err := core.LoadConfig("json", strings.NewReader(str))
+	if err != nil {
+		dialog.ShowInformation("提示", "json加载错误："+err.Error(), w)
+		return
+	}
+
+	server, err := core.New(c)
+	if err != nil {
+		dialog.ShowInformation("提示", "核心创建失败："+err.Error(), w)
+		return
+	}
+
+	err = server.Start()
+	if err != nil {
+		dialog.ShowInformation("提示", "核心启动失败："+err.Error(), w)
+		return
+	}
+	dialog.ShowInformation("提示", "启动", w)
+
+	device_code.SetDeviceProxy("127.0.0.1:30809")
 }

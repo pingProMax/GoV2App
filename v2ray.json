@@ -67,17 +67,10 @@
 	"routing": {
 		"domainStrategy": "IPIfNonMatch",
 		"domainMatcher": "linear",
-		"rules": [{
-				"type": "field",
-				"inboundTag": [
-					"api"
-				],
-				"outboundTag": "api",
-				"enabled": true
-			},
+		"rules": [
 			{
 				"type": "field",
-				"port": "0-65535",
+				"domain": ["google"],
 				"outboundTag": "proxy",
 				"enabled": true
 			}
