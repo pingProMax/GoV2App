@@ -32,4 +32,6 @@ gov2pane 客户端
 7、编译打包exe `fyne package`  
 
 # 页面展示  
-![页面展示](https://github.com/pingProMax/gov2panel/blob/master/admin.png?raw=true)
+页面略丑，流下了没有技术的泪水😟    
+![页面展示](https://github.com/pingProMax/GoV2App/blob/main/1.png?raw=true)  
+![页面展示](https://github.com/pingProMax/GoV2App/blob/main/2.png?raw=true)  
