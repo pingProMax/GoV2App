@@ -55,7 +55,7 @@ func LoginHandle(app fyne.App) {
 
 		},
 	}
-	link, err := url.Parse("https://fyne.io/")
+	link, err := url.Parse(webapi.RegisterUrl)
 	if err != nil {
 		fyne.LogError("Could not parse URL", err)
 	}

@@ -206,7 +206,7 @@ func makeUserUI(w fyne.Window) *fyne.Container {
 	fprogress.Max = BytesToGB(gconv.Int64(webapi.DB.Get("transfer_enable")))
 	fprogress.SetValue(BytesToGB(gconv.Int64(webapi.DB.Get("u")) + gconv.Int64(webapi.DB.Get("d"))))
 
-	link, err := url.Parse(webapi.ApiUrl + "/user/plan")
+	link, err := url.Parse(webapi.PlanUrl)
 	if err != nil {
 		fyne.LogError("Could not parse URL", err)
 	}
