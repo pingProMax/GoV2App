@@ -59,7 +59,6 @@ var xrayCore *core.Instance
 
 // 开启代理
 // w
-// xray
 // radioText代理类型 绕过大陆，全局
 // selectIndex选择索引
 // start是否开启

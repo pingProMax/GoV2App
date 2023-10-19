@@ -27,7 +27,7 @@ gov2pane 客户端
 2、安装Gcc  
 3、安装fyne `go install fyne.io/fyne/v2/cmd/fyne@latest`  
 4、拉取此项目 git clone xxxx  
-5、go get https://xxx  
+5、go get 
 6、webapi/api-info.go 更改api接口地址  
 7、编译打包exe `fyne package`  
 
