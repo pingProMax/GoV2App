@@ -49,7 +49,7 @@ func GetgClient() *gclient.Client {
 
 }
 
-// 获取订阅token
+// 获取订阅用户信息和订阅token
 func GetSubscribeToken() string {
 	c := GetgClient()
 	if r, err := c.Post(
@@ -60,8 +60,6 @@ func GetSubscribeToken() string {
 	} else {
 		defer r.Close()
 		jsonStr := r.ReadAllString()
-
-		fmt.Println(jsonStr)
 
 		if gjson.Get(jsonStr, "code").Int() != 0 {
 			return gjson.Get(jsonStr, "message").String()
@@ -106,9 +104,7 @@ func GetNodeInfo() string {
 		}
 
 		return nodep.ConvertShareTextToXrayJson("./config/sub.txt", "./config/outbounds_config.json")
-
 	}
-
 }
 
 // 获取公告

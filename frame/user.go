@@ -27,8 +27,10 @@ func init() {
 }
 
 func UserHandle(app fyne.App) {
-
 	w := app.NewWindow("GoV2加速")
+	w.Resize(fyne.NewSize(400, 600))
+	w.Show()
+
 	w.SetMaster()
 	// w.SetFixedSize(true) //禁止拖放
 
@@ -42,7 +44,7 @@ func UserHandle(app fyne.App) {
 	//获取节点信息
 	infoStr = webapi.GetNodeInfo()
 	if infoStr != "" {
-		dialog.ShowInformation("提示", infoStr, w)
+		dialog.ShowInformation("提示", "账号到期或者流量用完，请充值购买:)", w)
 		return
 	}
 
@@ -69,9 +71,6 @@ func UserHandle(app fyne.App) {
 
 	w.SetContent(container.NewBorder(nil, nil, nil, nil, tabs))
 
-	w.Resize(fyne.NewSize(400, 600))
-
-	w.Show()
 }
 
 // 选择节点索引

@@ -44,13 +44,13 @@ func LoginHandle(app fyne.App) {
 			//登录
 			infoStr := webapi.Login(usernameEntry.Text, passwdEntry.Text)
 			if infoStr == "" {
-
 				// w.Hide()
 				UserHandle(app)
 				w.Close()
 				xrayC(w)
 			} else {
 				dialog.ShowInformation("提示", infoStr, w)
+
 			}
 
 		},
