@@ -7,7 +7,7 @@ type NodeInfo struct {
 }
 
 var (
-	ApiUrl         string = "http://127.0.0.1:8080"
+	ApiUrl         string = "https://127.0.0.1:8080"
 	loginApi       string = "/login"                // 登录api
 	getUserInfoApi string = "/user"                 // 用户信息api
 	subApi         string = "/api/subscribe?token=" // 订阅api
@@ -22,7 +22,7 @@ var (
 	V string = "v 1.0"
 
 	//注册地址
-	RegisterUrl string = "https://www.52bd.top/register"
+	RegisterUrl string = "https://xxxxx/register"
 	//购买套餐地址
-	PlanUrl string = "https://www.52bd.top/user/plan"
+	PlanUrl string = "https://xxxxx/user/plan"
 )
