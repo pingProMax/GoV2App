@@ -3,6 +3,7 @@ package main
 import (
 	_ "embed"
 
+	"GoV2App/device_code"
 	_ "GoV2App/webapi"
 
 	_ "github.com/xtls/xray-core/main/distro/all"
@@ -21,7 +22,7 @@ var (
 )
 
 func main() {
-	// device_code.SetDeviceProxy("") //打开就清除代理
+	device_code.SetDeviceProxy("") //打开就清除代理
 
 	myApp := app.New()
 
