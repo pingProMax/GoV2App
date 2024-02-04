@@ -21,6 +21,8 @@ var (
 )
 
 func main() {
+	// device_code.SetDeviceProxy("") //打开就清除代理
+
 	myApp := app.New()
 
 	myApp.Settings().SetTheme(&MyTheme{})
