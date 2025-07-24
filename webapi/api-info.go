@@ -19,7 +19,7 @@ var (
 
 	// token string = "" //订阅用
 
-	V string = "v 1.0"
+	V string = "v 1.1"
 
 	//注册地址
 	RegisterUrl string = "https://xxxxx/register"

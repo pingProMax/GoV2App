@@ -5,7 +5,9 @@ import (
 	"image/color"
 	"net/url"
 	"os"
+	"os/exec"
 	"strconv"
+	"syscall"
 	"time"
 
 	"GoV2App/device_code"
@@ -26,6 +28,24 @@ import (
 func init() {
 }
 
+func dialogInfoQuit(title, content, butText string, butFunc func(), parent fyne.Window) {
+	nc := dialog.NewCustom(title, "", &widget.Label{Text: content, Alignment: fyne.TextAlignCenter}, parent)
+
+	coList := make([]fyne.CanvasObject, 0)
+
+	but := &widget.Button{Text: butText, Importance: widget.SuccessImportance,
+		OnTapped: func() {
+			if butFunc != nil {
+				butFunc()
+			}
+			parent.Close()
+		},
+	}
+	coList = append(coList, but)
+	nc.SetButtons(coList)
+	nc.Show()
+}
+
 func UserHandle(app fyne.App) {
 	w := app.NewWindow("GoV2加速")
 	w.Resize(fyne.NewSize(400, 600))
@@ -37,21 +57,26 @@ func UserHandle(app fyne.App) {
 	//获取用户订阅地址
 	infoStr := webapi.GetSubscribeToken()
 	if infoStr != "" {
-		dialog.ShowInformation("提示", infoStr, w)
+		dialogInfoQuit("提示", infoStr, "ok", nil, w)
 		return
 	}
 
 	//获取节点信息
 	infoStr = webapi.GetNodeInfo()
 	if infoStr != "" {
-		dialog.ShowInformation("提示", "账号到期或者流量用完，请充值购买:)", w)
+		dialogInfoQuit("提示", "账号到期或者流量用完，请充值购买:)", "ok", func() {
+			webapi.DB.Del("jwtEx")
+			cmd := exec.Command("cmd", "/c", "start", webapi.PlanUrl)
+			cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+			cmd.Start()
+		}, w)
 		return
 	}
 
 	//获取公告
 	infoStr = webapi.GetappBul()
 	if infoStr != "" {
-		dialog.ShowInformation("提示", infoStr, w)
+		dialogInfoQuit("提示", infoStr, "ok", nil, w)
 		return
 	}
 

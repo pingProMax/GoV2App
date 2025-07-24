@@ -34,8 +34,11 @@ func LoginHandle(app fyne.App) {
 		}
 	}
 
-	usernameEntry := &widget.Entry{PlaceHolder: "请输入用户名", Text: ""}
-	passwdEntry := &widget.Entry{PlaceHolder: "请输入密码", Password: true, Text: ""}
+	userName := webapi.DB.Get("userName")
+	passWd := webapi.DB.Get("passWd")
+
+	usernameEntry := &widget.Entry{PlaceHolder: "请输入用户名", Text: userName}
+	passwdEntry := &widget.Entry{PlaceHolder: "请输入密码", Password: true, Text: passWd}
 	// passwdEntry.Text = "******"
 	loginBut := &widget.Button{
 		Text: "登录",
@@ -44,6 +47,10 @@ func LoginHandle(app fyne.App) {
 			//登录
 			infoStr := webapi.Login(usernameEntry.Text, passwdEntry.Text)
 			if infoStr == "" {
+
+				webapi.DB.Set("userName", usernameEntry.Text)
+				webapi.DB.Set("passWd", passwdEntry.Text)
+
 				// w.Hide()
 				UserHandle(app)
 				w.Close()
